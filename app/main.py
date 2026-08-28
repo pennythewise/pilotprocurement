@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse
 
 from app.models import HealthResponse, WorkspaceState
@@ -15,7 +15,7 @@ async def health_check():
 @app.get("/finance/workspace", response_model=WorkspaceState)
 async def get_finance_workspace():
     """Get the finance workspace state.
-    
+
     Requires authentication.
     """
     return WorkspaceState(status="ready", module="finance")
@@ -26,9 +26,7 @@ async def landing_page():
     """Landing page that lists available workspaces."""
     return {
         "message": "Pilot Procurement API",
-        "workspaces": [
-            {"name": "finance", "path": "/finance/workspace"}
-        ]
+        "workspaces": [{"name": "finance", "path": "/finance/workspace"}],
     }
 
 
@@ -37,5 +35,5 @@ async def generic_exception_handler(request, exc):
     """Global exception handler."""
     return JSONResponse(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-        content={"detail": "Internal server error"}
+        content={"detail": "Internal server error"},
     )
